@@ -1,14 +1,15 @@
 # Aplicación celular de viajes turísticos
 Esta aplicación se basa en microservicios, los cuales se basa en mejorar la experiencia de un turista en cualquier parte del mundo donde desee viajar, este aplicativo va a contener:
 
-* Servicio de notificaciones
-* Servicio de telefonía y comunicación
-* Servicio de salud
-* Servicio de eventos
-* Servicio de mapas
-* Servicio de movilidad
-* Servicio de traducción
-* Servicio de calendario
+1. Servicio de autentificación de usuario
+2. Servicio de notificaciones
+3. Servicio de telefonía y comunicación
+4. Servicio de salud
+5. Servicio de eventos
+6. Servicio de mapas
+7. Servicio de movilidad
+8. Servicio de traducción
+9. Servicio de calendario
 
 Los cuales se podrán ver desde varias aplicaciones, principalmente este proyecto como esta pensado para turistas se va a hacer en un aplicativo móvil, el cual se realizara en el framework de Flutter con Dart.
 
