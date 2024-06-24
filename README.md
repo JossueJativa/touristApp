@@ -48,10 +48,10 @@ Al realizar eso se podrá ingresar usando la siguiente ruta `<Nombre del dominio
 
 ### Rutas de rediciones de API Users
 Las rutas de rediciones de el api con Django para autenticar a un usuario se llega a ser la principal:
-- /users/
-- /users/login/
-- /users/logout/
+- `/users/`
+- `/users/login/`
+- `/users/logout/`
 
 Y la documentación si es que se necesita sobre la api, llega a estar en la ruta:
-- /users/swagger/
-- /users/redoc/
+- `/users/swagger/`
+- `/users/redoc/`
