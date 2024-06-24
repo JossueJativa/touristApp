@@ -24,3 +24,24 @@ id  | password       | last_login | is_superuser | username | first_name | last_
 --- | ---------------|-------------| ------- | ---------- | ----------- | ---------- | ----- | -------- | --------- | ----------- |
 int | String (128)   | timestamp | boolean | String (150) | String (150) | String (150) | String (254) | boolean | boolean | timestamp |
 FK  | Necesario | auto completado | auto completado | necesario | No necesario | No necesario | Necesario | auto completado | auto completado | auto completado |
+
+### Cosas a saber antes de crear un super usuario
+En el `.gitignore` se encuentra ignorando la base de datos que es `db.sqlite3` entonces al momento de realizar cualquier intento de crear un usuario o alguna acción que implique algo de base de datos, se necesitara poner los siguientes comandos:
+
+> python manage.py makemigrations <br>
+> python manage.py migrate
+
+Esto ayudara a la creación de la base de datos y todos los componentes que se necesiten en la carpeta de `authuser`.
+
+El servicio contara con un usuario que se llama "superuser" el cual se crea mediante lineas de comando, donde se dejara aquí como crear el super usuario:
+
+> python manage.py createsuperuser
+
+Después de poner la linea se deberá ingresar la siguiente información: 
+
+> username: "Usuario que puede contener _, @, +, ., -" <br>
+> email: "email valido con @ y ." <br>
+> password: "Clave la cual después va a ser encriptada" <br>
+> confirm password: "Clave identidad a la contraseña anterior"
+
+Al realizar eso se podrá ingresar usando la siguiente ruta `<Nombre del dominio>\admin` y le pedirá un usuario y la contraseña que se creo anteriormente.
