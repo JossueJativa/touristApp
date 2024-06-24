@@ -17,7 +17,7 @@ Los servicios dependiendo de donde se llame, mayormente se van a hacer con dos t
 
 ## Servicios y sus componentes
 ### Desde el mas importante al menos importante
-* Servicio de autentificación de usuario
+#### Servicio de autentificación de usuario
 Este es el servicio principal de nuestro aplicativo, ya que se encargara de autenticar los usuarios que se están registrando en la aplicación, y están ingresando a la misma, este servicio se lo realizara a partir del Framework de Django, ya que este puede hacer que rápidamente un servicio de creación y autentificación de usuario de manera sencilla y rápida, los campos que pertenecerán al usuario van a ser:
 
 id  | password       | last_login | is_superuser | username | first_name | last_name | email | is_staff | is_active | date_joined |
@@ -25,7 +25,8 @@ id  | password       | last_login | is_superuser | username | first_name | last_
 int | String (128)   | timestamp | boolean | String (150) | String (150) | String (150) | String (254) | boolean | boolean | timestamp |
 FK  | Necesario | auto completado | auto completado | necesario | No necesario | No necesario | Necesario | auto completado | auto completado | auto completado |
 
-### Cosas a saber antes de crear un super usuario
+*Cosas a saber antes de crear un super usuario*
+
 En el `.gitignore` se encuentra ignorando la base de datos que es `db.sqlite3` entonces al momento de realizar cualquier intento de crear un usuario o alguna acción que implique algo de base de datos, se necesitara poner los siguientes comandos:
 
 > python manage.py makemigrations <br>
@@ -35,18 +36,23 @@ Esto ayudara a la creación de la base de datos y todos los componentes que se n
 
 El servicio contara con un usuario que se llama "superuser" el cual se crea mediante lineas de comando, donde se dejara aquí como crear el super usuario:
 
+```
 > python manage.py createsuperuser
+```
 
 Después de poner la linea se deberá ingresar la siguiente información: 
 
+```
 > username: "Usuario que puede contener _, @, +, ., -" <br>
 > email: "email valido con @ y ." <br>
 > password: "Clave la cual después va a ser encriptada" <br>
 > confirm password: "Clave identidad a la contraseña anterior"
+```
 
 Al realizar eso se podrá ingresar usando la siguiente ruta `<Nombre del dominio>\admin` y le pedirá un usuario y la contraseña que se creo anteriormente.
 
-### Rutas de rediciones de API Users
+*Rutas de rediciones de API Users*
+
 Las rutas de rediciones de el api con Django para autenticar a un usuario se llega a ser la principal:
 - `/users/`
 - `/users/login/`
@@ -55,3 +61,16 @@ Las rutas de rediciones de el api con Django para autenticar a un usuario se lle
 Y la documentación si es que se necesita sobre la api, llega a estar en la ruta:
 - `/users/swagger/`
 - `/users/redoc/`
+
+#### Servicio de notificaciones al usuario
+Este componente se encontrara realizado con Node.js, ya que al momento se cuenta con una buena forma de mandar notificaciones con un sistema de Google, que es el Firebase Cloud Messaging (FCM), se llega a hacer en node para poder guardar en un archivo externo el ID del usuario el cual tiene la aplicación instalada y el código del aplicativo para enviar la notificación.
+
+La característica principal de este servicio es que va a tener una base de datos NoSQL el cual tendrá el siguiente formato:
+
+```
+{
+    user_id: <int>,
+    code_phone: <string>
+}
+```
+Esto va a satisfacer la necesidad de tener los códigos de los celulares, y poder enviar mensajes mediante un end-point el cual va a recibir el mensaje que se quiere enviar, y dependiendo si tiene una lista de ID's de usuarios o no, se va a enviar a todas las personas que estén registradas en la aplicación de turismo.
