@@ -4,3 +4,4 @@ djangorestframework-simplejwt
 djangorestframework-simplejwt[blacklist]
 setuptools
 coreapi
+drf-yasg

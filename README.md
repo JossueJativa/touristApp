@@ -45,3 +45,13 @@ Después de poner la linea se deberá ingresar la siguiente información:
 > confirm password: "Clave identidad a la contraseña anterior"
 
 Al realizar eso se podrá ingresar usando la siguiente ruta `<Nombre del dominio>\admin` y le pedirá un usuario y la contraseña que se creo anteriormente.
+
+### Rutas de rediciones de API Users
+Las rutas de rediciones de el api con Django para autenticar a un usuario se llega a ser la principal:
+- /users/
+- /users/login/
+- /users/logout/
+
+Y la documentación si es que se necesita sobre la api, llega a estar en la ruta:
+- /users/swagger/
+- /users/redoc/
