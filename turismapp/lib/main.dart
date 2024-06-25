@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:turismapp/providers/push_notification.dart';
 import 'package:turismapp/screens/login.dart';
+import 'package:turismapp/screens/register.dart';
 import 'firebase_options.dart'; // Asegúrate de que este archivo exista
 
 void main() async {
@@ -40,6 +41,7 @@ class _MyAppState extends State<MyApp> {
       initialRoute: '/',
       routes: {
         '/': (context) => const Login(),
+        '/register': (context) => const Register(),
       },
     );
   }
