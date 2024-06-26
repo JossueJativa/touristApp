@@ -7,6 +7,7 @@ traduction_blueprint = Blueprint('traduction_controller', __name__)
 def traduction():
     data = request.get_json()
     text = data.get('text')
+    from_lan = data.get('from')
     to_lan = data.get('to')
 
     if not text or not to_lan:
@@ -18,7 +19,7 @@ def traduction():
     translator = Translator()
 
     try:
-        translated = translator.translate(text, dest=to_lan)
+        translated = translator.translate(text, src=from_lan, dest=to_lan)
         return jsonify({
             'old_text': text,
             'new_text': translated.text
