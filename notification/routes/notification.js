@@ -1,5 +1,4 @@
 const { Router } = require('express');
-const admin = require('firebase-admin');
 const { savePhone, getPhone, getAllPhones } = require('../database/phoneDB');
 const { getMessaging } = require('firebase-admin/messaging');
 
@@ -28,7 +27,7 @@ router.get('/get', async (req, res) => {
 });
 
 router.post('/send-notification', async (req, res) => {
-    const { user_id, title, message, fcmtoken } = req.body;
+    const { user_id, title, message } = req.body;
 
     try {
         const userPhoneInfo = await getPhone(user_id);

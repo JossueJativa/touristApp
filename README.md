@@ -36,6 +36,7 @@ Esta linea hará que se ejecute la aplicación en flask, donde se podrá guardar
 > 8000
 > 8001
 > 8002
+> 8003
 ```
 
 ## Servicios y sus componentes
@@ -84,49 +85,6 @@ Las rutas de rediciones de el api con Django para autenticar a un usuario se lle
 Y la documentación si es que se necesita sobre la api, llega a estar en la ruta:
 - `/users/swagger/`
 - `/users/redoc/`
-
-#### Servicio de notificaciones al usuario
-Este componente se encontrara realizado con Node.js, ya que al momento se cuenta con una buena forma de mandar notificaciones con un sistema de Google, que es el Firebase Cloud Messaging (FCM), se llega a hacer en node para poder guardar en un archivo externo el ID del usuario el cual tiene la aplicación instalada y el código del aplicativo para enviar la notificación.
-
-La característica principal de este servicio es que va a tener una base de datos NoSQL el cual tendrá el siguiente formato:
-
-```
-{
-    user_id: <int>,
-    code_phone: <string>
-}
-```
-Esto va a satisfacer la necesidad de tener los códigos de los celulares, y poder enviar mensajes mediante un end-point el cual va a recibir el mensaje que se quiere enviar, y dependiendo si tiene una lista de ID's de usuarios o no, se va a enviar a todas las personas que estén registradas en la aplicación de turismo.
-
-*Rutas de redirection de API*
-
-La ruta principal de redirección se va a ser de otro microservicio, la cual llega a tener como `http:\\<Nombre del dominio>` o `http:\\127.0.0.1:8001`:`http:\\10.0.2.2:8001`
-
-Las rutas principales para el guardado de datos para las notificaciones en la parte del aplicativo móvil se realizaran en los siguientes end points:
-
-- `/api/save`
-- `/api/get/:user_id`
-- `/api/get`
-- `/api/send-notification`
-
-Donde cada uno va a solicitar información especifica sobre que se necesitara enviar como:
-
-`/sabe`: Pide el user_id y el code_phone <br>
-`/get/:user_id`: Pide el id del usuario en la ruta <br>
-`/send-notification`: Pide el user_id, title y message <br>
-
-Para correr el aplicativo de node hay que redirigirse a la carpeta de notificaciones y poner los siguientes comandos
-
-```
-> node init
-> node app.js
-```
-
-Con el ultimo ya corre el servidor y debería salir lo siguiente en la consola de comandos:
-
-```
-Server running on port 8080
-```
 
 #### Servicio de compras del usuario
 Este servicio se centrara en obtener información de compras que se realizaran en el aplicativo de MOCHI GO, el cual se realizara con respecto a un carrito de compras con los artículos que se quisiera comprar, este se va a basar en servicio de:
@@ -204,3 +162,63 @@ Para cada categoría que se esta mencionando para end-points del api se van a ne
     'quantity': Cantidad del producto que compro
 }
 ```
+
+#### Servicio de notificaciones al usuario
+Este componente se encontrara realizado con Node.js, ya que al momento se cuenta con una buena forma de mandar notificaciones con un sistema de Google, que es el Firebase Cloud Messaging (FCM), se llega a hacer en node para poder guardar en un archivo externo el ID del usuario el cual tiene la aplicación instalada y el código del aplicativo para enviar la notificación.
+
+La característica principal de este servicio es que va a tener una base de datos NoSQL el cual tendrá el siguiente formato:
+
+```
+{
+    user_id: <int>,
+    code_phone: <string>
+}
+```
+Esto va a satisfacer la necesidad de tener los códigos de los celulares, y poder enviar mensajes mediante un end-point el cual va a recibir el mensaje que se quiere enviar, y dependiendo si tiene una lista de ID's de usuarios o no, se va a enviar a todas las personas que estén registradas en la aplicación de turismo.
+
+*Rutas de redirection de API*
+
+La ruta principal de redirección se va a ser de otro microservicio, la cual llega a tener como `http:\\<Nombre del dominio>` o `http:\\127.0.0.1:8001`:`http:\\10.0.2.2:8001`
+
+Las rutas principales para el guardado de datos para las notificaciones en la parte del aplicativo móvil se realizaran en los siguientes end points:
+
+- `/api/save`
+- `/api/get/:user_id`
+- `/api/get`
+- `/api/send-notification`
+
+Donde cada uno va a solicitar información especifica sobre que se necesitara enviar como:
+
+`/sabe`: Pide el user_id y el code_phone <br>
+`/get/:user_id`: Pide el id del usuario en la ruta <br>
+`/send-notification`: Pide el user_id, title y message <br>
+
+Para correr el aplicativo de node hay que redirigirse a la carpeta de notificaciones y poner los siguientes comandos
+
+```
+> node init
+> node app.js
+```
+
+Con el ultimo ya corre el servidor y debería salir lo siguiente en la consola de comandos:
+
+```
+Server running on port 8080
+```
+
+#### Servicio de envió de correos
+Este servicio se centrara en enviar información por un email, donde se usara la aplicación de Node.js para realizar este envió de forma sencilla y rápida, el cual tiene solo un end-point como servicio, el cual sera para el envió de correo personalizado, este aplicativo se usara en el puerto `8003`, y el cual contara con solo el envió de correos electrónicos por un email que es personal.
+
+el end-point de esta aplicación es el siguiente:
+- `/api/send-email`
+
+donde se deberá enviar el body con un método post con las siguientes palabras clave:
+```
+{
+    "email": "Email de la persona a enviar",
+    "subject": "Tema del email que se va a enviar",
+    "message": "Mensaje que se va a enviar por el correo"
+}
+```
+
+Como no llega a tener un guardado de datos, solo envía correos y termina envíanos como respuesta un estatus 200 como ok que se realizo la petición de ese end-point.

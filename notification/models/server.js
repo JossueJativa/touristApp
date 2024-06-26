@@ -1,11 +1,18 @@
+require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const { dbConnection } = require('../database/phoneDB');
+const { initializeApp, applicationDefault } = require('firebase-admin/app');
+
+// Inicializa Firebase Admin
+initializeApp({
+    credential: applicationDefault(),
+});
 
 class Server {
     constructor() {
         this.app = express();
-        this.port = process.env.PORT;
+        this.port = process.env.PORT || 8001;
 
         this.connectDB();
 
@@ -18,7 +25,7 @@ class Server {
     }
 
     routes() {
-        this.app.use('/api/notification', require('../routes/notification'));
+        this.app.use('/api', require('../routes/notification'));
     };
 
     middlewares() {
