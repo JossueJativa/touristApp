@@ -1,11 +1,14 @@
 import 'dart:async';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class PushNotification {
   final FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
   final FlutterLocalNotificationsPlugin flutterNotification =
       FlutterLocalNotificationsPlugin();
+  // SharedPreferences
+  final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
 
   Future<void> initNotifications() async {
     // Solicita permisos para recibir notificaciones
@@ -18,6 +21,9 @@ class PushNotification {
 
     if (settings.authorizationStatus == AuthorizationStatus.authorized) {
       String? token = await _firebaseMessaging.getToken();
+      _prefs.then((SharedPreferences prefs) {
+        prefs.setString('token', token!);
+      });
 
       FirebaseMessaging.onMessage.listen((RemoteMessage message) {
         _showNotification(message);

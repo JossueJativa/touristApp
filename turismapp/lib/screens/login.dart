@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:turismapp/components/ButtonForm.dart';
 import 'package:turismapp/components/InputForm.dart';
 import 'package:turismapp/components/TextButtonForm.dart';
+import 'package:turismapp/components/notifications.dart';
+import 'package:turismapp/controller/decodeJWT.dart';
 import 'package:turismapp/controller/userController.dart';
 
 class Login extends StatefulWidget {
@@ -14,6 +17,7 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
 
   @override
   Widget build(BuildContext context) {
@@ -52,11 +56,43 @@ class _LoginState extends State<Login> {
                       principalColor: Colors.white,
                       onPressedColor: Colors.grey,
                       textColor: Colors.black,
-                      onPressed: () => {
-                            login(
+                      onPressed: () async {
+                            final response = await login(
                               _usernameController.text,
                               _passwordController.text,
-                            )
+                            );
+
+                            if (response.containsKey("error")) {
+                              Notifications(
+                                context: context,
+                                title: response["error"],
+                                color: Colors.red,
+                              );
+                            } else {
+                              final prefs = await _prefs;
+                              final access = decodeJWT(response["access"]);
+                              final refresh = decodeJWT(response["refresh"]);
+                              final token = prefs.getString('token');
+
+                              final user_id = access["user_id"];
+                              final saveToken = await saveMobileToken(token!, user_id);
+                              prefs.setString('access', response["access"]);
+                              prefs.setString('refresh', response["refresh"]);
+
+                              if (saveToken) {
+                                Notifications(
+                                  context: context,
+                                  title: "Login successful",
+                                  color: Colors.green,
+                                );
+                              } else {
+                                Notifications(
+                                  context: context,
+                                  title: "Error in Login",
+                                  color: Colors.red,
+                                );
+                              }
+                            }
                           }),
 
                   TextButtonForm(

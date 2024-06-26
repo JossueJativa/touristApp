@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:turismapp/providers/push_notification.dart';
 import 'package:turismapp/screens/login.dart';
 import 'package:turismapp/screens/register.dart';
-import 'firebase_options.dart'; // Asegúrate de que este archivo exista
+import 'firebase_options.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

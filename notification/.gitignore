@@ -45,3 +45,6 @@ jspm_packages/
 
 # Optional stylelint cache
 .stylelintcache
+
+# firebase configuration
+/config/*
