@@ -9,3 +9,5 @@ drf-yasg
 Flask
 Flask-SQLAlchemy
 SQLAlchemy
+
+googletrans
