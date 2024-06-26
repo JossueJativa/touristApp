@@ -31,6 +31,13 @@ python app.py
 ```
 Esta linea hará que se ejecute la aplicación en flask, donde se podrá guardar la información de forma básica sin usuarios distribuyendo la información en distintas tablas de bases de datos, o sino solo para llamar los datos que necesite.
 
+- Puertos que se estan usando en los microservicios
+```
+> 8000
+> 8001
+> 8002
+```
+
 ## Servicios y sus componentes
 ### Desde el mas importante al menos importante
 #### Servicio de autentificación de usuario
@@ -129,9 +136,9 @@ Este servicio se centrara en obtener información de compras que se realizaran e
     | --- |
     | String(150) |
 - Creación de productos con respecto a su categoría
-    | Nombre de producto | Descripción | Precio | Stock | categoria id |
+    | Nombre de producto | Descripción | Precio | Image | categoria id |
     | --- | --- | --- | --- | --- |
-    | String(150) | String(150) | float | int | PK |
+    | String(150) | String(150) | float | String(150) | PK |
 - Creación de facturación con respecto a los datos que se tiene del usuario como:
     | Usuario id | email de usuario | primer nombre | Segundo nombre | Ubicación | Date | Phone |
     | ----------------- | ---------------- | ---------| ----| ------ | ---- | ---- |
@@ -153,7 +160,47 @@ Para las rutas con este aplicativo de Flask se va a usar los siguientes enlaces:
 
 - `/categories`
 - `/products`
+- `/products/<int:product_id>`
 - `/bill-details`
 - `/bills`
 
 los cuales cada uno tiene su método CRUD, el cual funcionara para realizar cualquier acción que se necesite para crear la facturación correspondiente y de esa forma podremos encontrar de forma rápida la información necesaria para mandar al front-end mucho más rápido y más efectivo.
+
+Para cada categoría que se esta mencionando para end-points del api se van a necesitar algunos parámetros en el body, los cuales son:
+
+- categories
+```
+{
+    "name": "Algún nombre de una categoría"
+}
+```
+- products
+```
+{
+    "category_id": Int de categoría,
+    "description": "Descripción del producto",
+    "image": "link de imagen",
+    "name": "Nombre del producto",
+    "price": Precio en double
+},
+```
+- bill
+```
+{
+    'total': total de la compra realizada,
+    'user_id': int del usuario que compre,
+    'first_name': Primer nombre del usuario,
+    'last_name': Segundo nombre del usuario,
+    'email': Email del usuario,
+    'location': Donde vive el usuario,
+    'phone': Celular del usuario
+}
+```
+- bill-details
+```
+{
+    'bill_id': Id de la cabecera a la cual va asociada,
+    'product_id': Id del producto que compro
+    'quantity': Cantidad del producto que compro
+}
+```
