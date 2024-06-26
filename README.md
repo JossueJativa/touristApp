@@ -155,3 +155,5 @@ Para las rutas con este aplicativo de Flask se va a usar los siguientes enlaces:
 - `/products`
 - `/bill-details`
 - `/bills`
+
+los cuales cada uno tiene su método CRUD, el cual funcionara para realizar cualquier acción que se necesite para crear la facturación correspondiente y de esa forma podremos encontrar de forma rápida la información necesaria para mandar al front-end mucho más rápido y más efectivo.
