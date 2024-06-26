@@ -9,13 +9,15 @@ def create_product():
     data = request.json
     name = data.get('name')
     description = data.get('description')
+    image = data.get('image')
     price = data.get('price')
     category_id = data.get('category_id')
 
     if not name or not price or not category_id:
         return jsonify({'error': 'Name, price, and category_id are required fields'}), 400
 
-    product = Product(name=name, description=description, price=price, category_id=category_id)
+    category = Category.query.get(category_id)
+    product = Product(name=name, description=description, image=image, price=price, category=category)
     db.session.add(product)
     db.session.commit()
 
@@ -23,6 +25,7 @@ def create_product():
         'id': product.id,
         'name': product.name,
         'description': product.description,
+        'image': product.image if product.image else '',
         'price': product.price,
         'category_id': product.category_id
     }}), 201
@@ -34,6 +37,7 @@ def get_products():
         'id': product.id,
         'name': product.name,
         'description': product.description,
+        'image': product.image if product.image else '',
         'price': product.price,
         'category_id': product.category_id
     } for product in products]
@@ -50,9 +54,23 @@ def get_product(product_id):
         'id': product.id,
         'name': product.name,
         'description': product.description,
+        'image': product.image if product.image else '',
         'price': product.price,
         'category_id': product.category_id
     })
+
+@product_blueprint.route('/products/category/<int:category_id>', methods=['GET'])
+def get_products_by_category(category_id):
+    products = Product.query.filter_by(category_id=category_id).all()
+    products_list = [{
+        'id': product.id,
+        'name': product.name,
+        'description': product.description,
+        'image': product.image if product.image else '',
+        'price': product.price,
+        'category_id': product.category_id
+    } for product in products]
+    return jsonify(products_list)
 
 @product_blueprint.route('/products/<int:product_id>', methods=['PUT'])
 def update_product(product_id):
@@ -64,6 +82,7 @@ def update_product(product_id):
     data = request.json
     product.name = data.get('name', product.name)
     product.description = data.get('description', product.description)
+    product.image = data.get('image', product.image)
     product.price = data.get('price', product.price)
     product.category_id = data.get('category_id', product.category_id)
 
@@ -73,6 +92,7 @@ def update_product(product_id):
         'id': product.id,
         'name': product.name,
         'description': product.description,
+        'image': product.image if product.image else '',
         'price': product.price,
         'category_id': product.category_id
     }})
