@@ -38,75 +38,71 @@ class _LoginState extends State<Login> {
                 children: [
                   Image.asset('assets/LOGO_MOCHI_GO.png',
                       width: 200, height: 200, fit: BoxFit.fill),
-
                   InputForm(
                       icon: Icons.person,
                       hint: "Username",
                       isPassword: false,
                       controller: _usernameController),
-
                   InputForm(
                       icon: Icons.lock,
                       hint: "Password",
                       isPassword: true,
                       controller: _passwordController),
-
                   ButtonForm(
                       text: "Login",
                       principalColor: Colors.white,
                       onPressedColor: Colors.grey,
                       textColor: Colors.black,
                       onPressed: () async {
-                            final response = await login(
-                              _usernameController.text,
-                              _passwordController.text,
+                        final response = await login(
+                          _usernameController.text,
+                          _passwordController.text,
+                        );
+
+                        if (response.containsKey("error")) {
+                          Notifications(
+                            context: context,
+                            title: response["error"],
+                            color: Colors.red,
+                          );
+                        } else {
+                          final prefs = await _prefs;
+                          final access = decodeJWT(response["access"]);
+                          final refresh = decodeJWT(response["refresh"]);
+                          final token = prefs.getString('token');
+
+                          final user_id = access["user_id"];
+                          final saveToken =
+                              await saveMobileToken(token!, user_id);
+                          prefs.setString('access', access.toString());
+                          prefs.setString('refresh', refresh.toString());
+                          prefs.setInt("user_id", user_id);
+
+                          if (saveToken) {
+                            Notifications(
+                              context: context,
+                              title: "Login successful",
+                              color: Colors.green,
                             );
-
-                            if (response.containsKey("error")) {
-                              Notifications(
-                                context: context,
-                                title: response["error"],
-                                color: Colors.red,
-                              );
-                            } else {
-                              final prefs = await _prefs;
-                              final access = decodeJWT(response["access"]);
-                              final refresh = decodeJWT(response["refresh"]);
-                              final token = prefs.getString('token');
-
-                              final user_id = access["user_id"];
-                              final saveToken = await saveMobileToken(token!, user_id);
-                              prefs.setString('access', response["access"]);
-                              prefs.setString('refresh', response["refresh"]);
-
-                              if (saveToken) {
-                                Notifications(
-                                  context: context,
-                                  title: "Login successful",
-                                  color: Colors.green,
-                                );
-                              } else {
-                                Notifications(
-                                  context: context,
-                                  title: "Error in Login",
-                                  color: Colors.red,
-                                );
-                              }
-                            }
-                          }),
-
+                          } else {
+                            Notifications(
+                              context: context,
+                              title: "Error in Login",
+                              color: Colors.red,
+                            );
+                          }
+                        }
+                      }),
                   TextButtonForm(
                     text: "Forgot your password?",
                     onPressed: () => {print("Forgot your password?")},
                     textColor: Colors.black,
                     fontSize: 15.0,
                   ),
-
                   TextButtonForm(
                     text: "Sign up",
-                    onPressed: () => {
-                      Navigator.pushNamed(context, '/register')
-                    },
+                    onPressed: () =>
+                        {Navigator.pushNamed(context, '/register')},
                     textColor: Colors.black,
                     fontSize: 20.0,
                   ),
