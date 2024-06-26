@@ -98,9 +98,9 @@ Las rutas principales para el guardado de datos para las notificaciones en la pa
 
 Donde cada uno va a solicitar información especifica sobre que se necesitara enviar como:
 
-`sabe`: Pide el user_id y el code_phone <br>
-`get\:user_id`: Pide el id del usuario en la ruta <br>
-`send-notification`: Pide el user_id, title y message <br>
+`/sabe`: Pide el user_id y el code_phone <br>
+`/get/:user_id`: Pide el id del usuario en la ruta <br>
+`/send-notification`: Pide el user_id, title y message <br>
 
 Para correr el aplicativo de node hay que redirigirse a la carpeta de notificaciones y poner los siguientes comandos
 
