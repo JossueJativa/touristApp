@@ -9,10 +9,10 @@ Esta aplicación se basa en microservicios, los cuales se basa en mejorar la exp
 
 Los cuales se podrán ver desde varias aplicaciones, principalmente este proyecto como esta pensado para turistas se va a hacer en un aplicativo móvil, el cual se realizara en el framework de Flutter con Dart.
 
-Los servicios dependiendo de donde se llame, mayormente se van a hacer con dos tipos de lenguaje, los cuales van a ser con el backend de Python y JavaScript, con su respectivo framework, los cuales son Node.js y si se necesita algún guardado de datos o autentificaciones de usuario se usara Django para enviar algún servicio que necesite consumo o realizar comando que necesite de comprobaciones o servicio externo que no necesite algún tipo de guardado de datos.
+Los servicios dependiendo de donde se llame, mayormente se van a hacer con dos tipos de lenguaje, los cuales van a ser con el backend de Python y JavaScript, con su respectivo framework, los cuales son Node.js y si se necesita algún guardado de datos o autentificaciones de usuario se usara Django o Flask para enviar algún servicio que necesite consumo o realizar comando que necesite de comprobaciones o servicio externo que no necesite algún tipo de guardado de datos.
 
 # Nota
-Al momento se esta tratando con las aplicaciones como Django, Node.js y Flask, entonces estas notas seran para poder realizar todas las ejecuciones de los codigos:
+Al momento se esta tratando con las aplicaciones como Django, Node.js y Flask, entonces estas notas serán para poder realizar todas las ejecuciones de los códigos:
 
 - Django
 ```
@@ -23,7 +23,13 @@ Esta linea de comandos servirá para ejecutar he iniciar el microservicio de pyt
 ```
 > node app.js
 ```
-Esta linea va a ejecutar siempre el microservicio que este realizado con JavaScript donde no hay que olvidar que tenemos las variables de entorno llamadas `.env` estas se encuentran retiradas del github por el `.gitignore` entonces hay que crear uno de esos en la base del proyecto y poner el puerto el cual se van a registar de la siguiente forma `PORT=8000` por dar un ejemplo
+Esta linea va a ejecutar siempre el microservicio que este realizado con JavaScript donde no hay que olvidar que tenemos las variables de entorno llamadas `.env` estas se encuentran retiradas del github por el `.gitignore` entonces hay que crear uno de esos en la base del proyecto y poner el puerto el cual se van a registrar de la siguiente forma `PORT=8000` por dar un ejemplo
+
+- Flask
+```
+python app.py
+```
+Esta linea hará que se ejecute la aplicación en flask, donde se podrá guardar la información de forma básica sin usuarios distribuyendo la información en distintas tablas de bases de datos, o sino solo para llamar los datos que necesite.
 
 ## Servicios y sus componentes
 ### Desde el mas importante al menos importante
@@ -127,38 +133,25 @@ Este servicio se centrara en obtener información de compras que se realizaran e
     | --- | --- | --- | --- | --- |
     | String(150) | String(150) | float | int | PK |
 - Creación de facturación con respecto a los datos que se tiene del usuario como:
-    | nombre de usuario | email de usuario | primer nombre | Segundo nombre | Ubicación |
-    | ----------------- | ---------------- | ---------| ----| ------ |
-    | String(150) | String(150) | String(150) | String(150) | String(50) |
+    | Usuario id | email de usuario | primer nombre | Segundo nombre | Ubicación | Date | Phone |
+    | ----------------- | ---------------- | ---------| ----| ------ | ---- | ---- |
+    | int | String(150) | String(150) | String(150) | String(50) | Date | String(10) |
 - Creación de productos comprados como:
     | Nombre del producto | Precio unitario | Cantidad |
     | --- | ---- | ---- | 
     | String(150) | float | int |
 
-Al ver que es un servicio que necesita de base de datos relacional para realizar las facturas de forma dinámica, se llegara a usar una base de datos, se usara Django como forma de API para la creación de la factura de la data que se va a necesitar guardar de compras.
+Al ver que es un servicio que necesita de base de datos relacional para realizar las facturas de forma dinámica, se llegara a usar una base de datos, se usara Flask como forma de API para la creación de la factura de la data que se va a necesitar guardar de compras.
 
-*Cosas a saber antes de crear un super usuario*
+*Cosas antes de ejecutar el programa*
 
-En el `.gitignore` se encuentra ignorando la base de datos que es `db.sqlite3` entonces al momento de realizar cualquier intento de crear un usuario o alguna acción que implique algo de base de datos, se necesitara poner los siguientes comandos:
+Al tratarse de un aplicativo en Flask, no se necesitaran muchas dependencias, pero si llega a haber un `.gitignore` para no subir en el github la base de datos que se va a crear al momento de ejecutar la aplicación.
 
-> python manage.py makemigrations <br>
-> python manage.py migrate
+*Rutas de redirection de API*
 
-Esto ayudara a la creación de la base de datos y todos los componentes que se necesiten en la carpeta de `authuser`.
+Para las rutas con este aplicativo de Flask se va a usar los siguientes enlaces: `http://<nombre de dominio>\` o `http://127.0.0.1:8002`:`http://10.0.2.2:8002` para poder conectarse al api que nos trae Flask, las rutas van a ser las siguientes:
 
-El servicio contara con un usuario que se llama "superuser" el cual se crea mediante lineas de comando, donde se dejara aquí como crear el super usuario:
-
-```
-> python manage.py createsuperuser
-```
-
-Después de poner la linea se deberá ingresar la siguiente información: 
-
-```
-> username: "Usuario que puede contener _, @, +, ., -" <br>
-> email: "email valido con @ y ." <br>
-> password: "Clave la cual después va a ser encriptada" <br>
-> confirm password: "Clave identidad a la contraseña anterior"
-```
-
-Al realizar eso se podrá ingresar usando la siguiente ruta `<Nombre del dominio>\admin` o `http:\\127.0.0.1:8002\admin`:`http:\\10.0.2.2:8002\admin` y le pedirá un usuario y la contraseña que se creo anteriormente.
+- `/categories`
+- `/products`
+- `/bill-details`
+- `/bills`

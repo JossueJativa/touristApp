@@ -5,3 +5,7 @@ djangorestframework-simplejwt[blacklist]
 setuptools
 coreapi
 drf-yasg
+
+Flask
+Flask-SQLAlchemy
+SQLAlchemy
