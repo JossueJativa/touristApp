@@ -203,7 +203,7 @@ Para correr el aplicativo de node hay que redirigirse a la carpeta de notificaci
 Con el ultimo ya corre el servidor y debería salir lo siguiente en la consola de comandos:
 
 ```
-Server running on port 8080
+Server running on port 8001
 ```
 
 #### Servicio de envió de correos
@@ -222,3 +222,19 @@ donde se deberá enviar el body con un método post con las siguientes palabras 
 ```
 
 Como no llega a tener un guardado de datos, solo envía correos y termina envíanos como respuesta un estatus 200 como ok que se realizo la petición de ese end-point.
+
+#### Servicio de traducción
+El servicio va a ser un traductor, emitido por un servicio rest de Flask, este como no necesitara un guardado de datos, se podrá hacer de manera sencilla con un solo endpoint, este servicio esta ubicado con el puerto `8004` y su único end-point es el siguiente
+
+- `/traduction`
+
+donde se necesitara hacer un método post dando los siguientes datos como cuerpo de la petición:
+```
+{
+    "text": "Texto a traducir",
+    "from": "código de idioma del texto original ",
+    "to": "código de idioma al que se desea traducir"
+}
+```
+
+Estos serian todos los servicios que se realizaron en esta aplicación, ahora el resto se va a usar Flutter para realizar la aplicación móvil, ya que como este proyecto se trata de realizar algún aplicativo para turistas, se pensó que seria mejor realizar un app donde lo puedan llevar a cualquier lado, pero esta aplicación va a tener algunas restricciones.
