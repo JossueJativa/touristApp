@@ -91,10 +91,10 @@ La ruta principal de redirección se va a ser de otro microservicio, la cual lle
 
 Las rutas principales para el guardado de datos para las notificaciones en la parte del aplicativo móvil se realizaran en los siguientes end points:
 
-- `/api/notification/save`
-- `/api/notification/get/:user_id`
-- `/api/notification/get`
-- `/api/notification/send-notification`
+- `/api/save`
+- `/api/get/:user_id`
+- `/api/get`
+- `/api/send-notification`
 
 Donde cada uno va a solicitar información especifica sobre que se necesitara enviar como:
 

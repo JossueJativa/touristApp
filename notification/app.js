@@ -1,15 +1,21 @@
 require('dotenv').config();
 
-const admin = require('firebase-admin');
+const express = require('express');
+const { initializeApp, applicationDefault  } = require('firebase-admin/app');
 
-const Server = require('./models/server');
+process.env.GOOGLE_APPLICATION_CREDENTIALS;
 
-const serviceAccount = require('./config/serviceAccountKey.json');
-
-admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount)
+initializeApp({
+  credential: applicationDefault(),
 });
 
 // Crear instancia del servidor y escuchar en el puerto
-const server = new Server();
-server.listen();
+const app = express();
+app.use(express.json());
+
+app.use('/api', require('./routes/notification'));
+
+const PORT = process.env.PORT || 8001;
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});
