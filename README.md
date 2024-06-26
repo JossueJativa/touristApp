@@ -11,7 +11,7 @@ Los cuales se podrán ver desde varias aplicaciones, principalmente este proyect
 
 Los servicios dependiendo de donde se llame, mayormente se van a hacer con dos tipos de lenguaje, los cuales van a ser con el backend de Python y JavaScript, con su respectivo framework, los cuales son Node.js y si se necesita algún guardado de datos o autentificaciones de usuario se usara Django o Flask para enviar algún servicio que necesite consumo o realizar comando que necesite de comprobaciones o servicio externo que no necesite algún tipo de guardado de datos.
 
-# Nota
+### Nota
 Al momento se esta tratando con las aplicaciones como Django, Node.js y Flask, entonces estas notas serán para poder realizar todas las ejecuciones de los códigos:
 
 - Django
