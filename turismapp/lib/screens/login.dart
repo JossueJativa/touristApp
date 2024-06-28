@@ -68,15 +68,17 @@ class _LoginState extends State<Login> {
                         } else {
                           final prefs = await _prefs;
                           final access = decodeJWT(response["access"]);
-                          final refresh = decodeJWT(response["refresh"]);
                           final token = prefs.getString('token');
 
                           final user_id = access["user_id"];
                           final saveToken =
                               await saveMobileToken(token!, user_id);
-                          prefs.setString('access', access.toString());
-                          prefs.setString('refresh', refresh.toString());
-                          prefs.setInt("user_id", user_id);
+                          final user_info = await getUserInfo(user_id);
+
+                          await prefs.setString('access', response["access"]);
+                          await prefs.setString('refresh', response["refresh"]);
+                          await prefs.setString(
+                              'user_info', user_info.toString());
 
                           if (saveToken) {
                             Notifications(
@@ -84,6 +86,7 @@ class _LoginState extends State<Login> {
                               title: "Login successful",
                               color: Colors.green,
                             );
+                            Navigator.popAndPushNamed(context, '/home');
                           } else {
                             Notifications(
                               context: context,

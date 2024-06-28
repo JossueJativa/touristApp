@@ -83,12 +83,12 @@ class _RegisterState extends State<Register> {
                             context: context,
                             color: Colors.green,
                           );
-                          Navigator.pushNamed(context, '/');
+                          Navigator.pushNamed(context, '/login');
                         }
                       }),
                   TextButtonForm(
                     text: "Sign in",
-                    onPressed: () => {Navigator.pushNamed(context, '/')},
+                    onPressed: () => {Navigator.pushNamed(context, '/login')},
                     textColor: Colors.black,
                     fontSize: 20.0,
                   ),

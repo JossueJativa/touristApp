@@ -1,6 +1,8 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:turismapp/providers/push_notification.dart';
+import 'package:turismapp/screens/home.dart';
 import 'package:turismapp/screens/login.dart';
 import 'package:turismapp/screens/register.dart';
 import 'firebase_options.dart';
@@ -12,14 +14,23 @@ void main() async {
       options: DefaultFirebaseOptions.currentPlatform,
     );
 
-    runApp(const MyApp());
+    final SharedPreferences _prefs = await SharedPreferences.getInstance();
+
+    final getPref = _prefs.getString('access');
+
+    if (getPref == null) {
+      runApp(const MyApp(initialPage: '/login'));
+    } else {
+      runApp(const MyApp(initialPage: '/home'));
+    }
   } catch (e) {
     print('Firebase initialization error: $e');
   }
 }
 
 class MyApp extends StatefulWidget {
-  const MyApp({Key? key}) : super(key: key);
+  final String initialPage;
+  const MyApp({Key? key, required this.initialPage}) : super(key: key);
 
   @override
   State<MyApp> createState() => _MyAppState();
@@ -38,10 +49,11 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: '/',
+      initialRoute: widget.initialPage,
       routes: {
-        '/': (context) => const Login(),
+        '/login': (context) => const Login(),
         '/register': (context) => const Register(),
+        '/home': (context) => const Home(),
       },
     );
   }

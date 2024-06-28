@@ -1,4 +1,5 @@
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 
 import 'package:turismapp/controller/api.dart';
@@ -18,7 +19,6 @@ Future<Map<String, dynamic>> login(String username, String password) async {
 
     if (response.statusCode == 200) {
       final Map<String, dynamic> data = json.decode(response.body);
-      print(data);
       return data;
     } else {
       final Map<String, dynamic> data = json.decode(response.body);
@@ -42,7 +42,7 @@ Future<Map<String, dynamic>> register(String username, String email, String pass
 
     try {
       final response = await http.post(
-        Uri.parse(API_url_register),
+        Uri.parse(API_url_user),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         },
@@ -63,8 +63,36 @@ Future<Map<String, dynamic>> register(String username, String email, String pass
   }
 }
 
+Future<bool> logout() async {
+  final SharedPreferences prefs = await SharedPreferences.getInstance();
+  final refresh = prefs.getString('refresh');
+
+  try {
+    final response = await http.post(
+      Uri.parse(API_url_logout),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+
+      body: jsonEncode(<String, String>{
+        'refresh': refresh!,
+      }),
+    );
+
+    if (response.statusCode == 200) {
+      prefs.remove('refresh');
+      prefs.remove('user_info');
+      return true;
+    } else {
+      return false;
+    }
+  } catch (e) {
+    print(e);
+    return false;
+  }
+}
+
 Future<bool> saveMobileToken(String token, int user_id) async {
-  // Ver si el token ya está guardado
   try {
     final response = await http.get(
       Uri.parse(API_url_notifications_get + user_id.toString()),
@@ -105,5 +133,27 @@ Future<bool> saveMobileToken(String token, int user_id) async {
   } catch (e) {
     print(e);
     return false;
+  }
+}
+
+Future<Map<String, dynamic>> getUserInfo(int user_id) async {
+  try {
+    final response = await http.get(
+      Uri.parse("$API_url_user$user_id/"),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+    );
+
+    if (response.statusCode == 200) {
+      final Map<String, dynamic> data = json.decode(response.body);
+      return data;
+    } else {
+      final Map<String, dynamic> data = json.decode(response.body);
+      return {"error": data["message"]};
+    }
+  } catch (e) {
+    print(e);
+    return {"error": e};
   }
 }
