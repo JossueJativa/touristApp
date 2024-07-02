@@ -21,16 +21,33 @@ class _HomeState extends State<Home> {
             fit: BoxFit.cover,
           ),
         ),
-        child: const Center(
+        child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(
-                'Welcome to TurismApp',
+              Image.asset('assets/LOGO_MOCHI_GO.png',
+                  width: 200, height: 200, fit: BoxFit.fill),
+              const Text(
+                'Bienvenido a MOCHI GO',
                 style: TextStyle(
-                  color: Colors.white,
+                  color: Colors.black,
                   fontSize: 30,
                   fontWeight: FontWeight.bold,
+                ),
+              ),
+              const SizedBox(height: 20),
+              const Padding(
+                padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                child: Center(
+                  child: Text(
+                    'Aquí abajo hay un botón que se arrastra hacia arriba para que selecciones la categoría que quieras comprar',
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
                 ),
               ),
             ],

@@ -9,4 +9,7 @@ const String API_url_notifications_get = "http://10.0.2.2:8001/api/get/";
 const String API_url_notifications_send = "http://10.0.2.2:8001/api/send-notification";
 
 const String API_url_categories = "http://10.0.2.2:8002/categories";
+const String API_url_products = "http://10.0.2.2:8002/products";
 const String API_url_categories_product = "http://10.0.2.2:8002/products/category/";
+
+const String API_url_translate = "http://10.0.2.2:8004/traduction";

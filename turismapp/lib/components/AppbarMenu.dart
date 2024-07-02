@@ -45,7 +45,7 @@ class AppbarMenu extends StatelessWidget implements PreferredSizeWidget {
           width: 200,
           height: 40,
           onPressed: () {
-            
+            Navigator.pushNamed(context, '/traductor');
           },
         ),
 

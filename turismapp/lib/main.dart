@@ -4,7 +4,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:turismapp/providers/push_notification.dart';
 import 'package:turismapp/screens/home.dart';
 import 'package:turismapp/screens/login.dart';
+import 'package:turismapp/screens/products.dart';
 import 'package:turismapp/screens/register.dart';
+import 'package:turismapp/screens/traductor.dart';
 import 'firebase_options.dart';
 
 void main() async {
@@ -54,6 +56,10 @@ class _MyAppState extends State<MyApp> {
         '/login': (context) => const Login(),
         '/register': (context) => const Register(),
         '/home': (context) => const Home(),
+        '/traductor': (context) => const Traductor(),
+        '/products': (context) => Products(
+          categoryId: ModalRoute.of(context)!.settings.arguments as int
+        ),
       },
     );
   }

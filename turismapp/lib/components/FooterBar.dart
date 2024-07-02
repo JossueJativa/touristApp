@@ -87,7 +87,8 @@ class _FooterBarState extends State<FooterBar> {
                       onTap: () {
                         animateSelection(index);
                         final id = category['id'];
-                        print('Categoría seleccionada: $id');
+                        
+                        Navigator.pushNamed(context, '/products', arguments: id);
                       },
                       child: AnimatedOpacity(
                         opacity: selectedIndex == index ? 0.5 : 1.0,

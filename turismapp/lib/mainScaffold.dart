@@ -14,7 +14,7 @@ class MainScaffold extends StatelessWidget {
       appBar: const AppbarMenu(),
       body: Stack(
         children: <Widget>[
-          Container(
+          SizedBox(
             width: double.infinity,
             height: double.infinity,
             child: body,

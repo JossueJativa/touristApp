@@ -20,9 +20,10 @@ def traduction():
 
     try:
         translated = translator.translate(text, src=from_lan, dest=to_lan)
+        print(translated.text)
         return jsonify({
             'old_text': text,
             'new_text': translated.text
-        })
+        }, 200)
     except Exception as e:
         return jsonify({'error': str(e)}), 500

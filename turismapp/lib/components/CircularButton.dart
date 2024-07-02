@@ -46,7 +46,7 @@ class _CircularButtonState extends State<CircularButton> {
         child: Center(
           child: Icon(
             widget.icon,
-            color: Colors.white, // Color del icono para buen contraste
+            color: Colors.black,
             size: (widget.width < widget.height ? widget.width : widget.height) / 2,
           ),
         ),

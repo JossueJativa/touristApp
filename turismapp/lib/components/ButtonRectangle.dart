@@ -37,8 +37,8 @@ class _ButtonRectangleState extends State<ButtonRectangle> {
           child: Text(
             widget.text,
             style: const TextStyle(
-              color: Colors.white, // Color del texto
-              fontSize: 16.0, // Tamaño del texto
+              color: Colors.black,
+              fontSize: 20.0,
             ),
           ),
         ),
