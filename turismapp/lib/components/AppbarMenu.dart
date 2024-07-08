@@ -57,19 +57,19 @@ class AppbarMenu extends StatelessWidget implements PreferredSizeWidget {
           width: 45,
           height: 45,
           onPressed: () {
-            
+            Navigator.pushNamed(context, '/cart');
           },
         ),
 
         const SizedBox(width: 10),
 
         CircularButton(
-          icon: Icons.person,
+          icon: Icons.home,
           color: const Color(0xFF80DEEA),
           width: 45,
           height: 45,
           onPressed: () {
-            
+            Navigator.pushNamed(context, '/home');
           },
         ),
 

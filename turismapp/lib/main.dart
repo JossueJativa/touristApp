@@ -2,8 +2,11 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:turismapp/providers/push_notification.dart';
+import 'package:turismapp/screens/cart.dart';
 import 'package:turismapp/screens/home.dart';
 import 'package:turismapp/screens/login.dart';
+import 'package:turismapp/screens/payment.dart';
+import 'package:turismapp/screens/product.dart';
 import 'package:turismapp/screens/products.dart';
 import 'package:turismapp/screens/register.dart';
 import 'package:turismapp/screens/traductor.dart';
@@ -21,7 +24,6 @@ void main() async {
     final getPref = _prefs.getString('access');
 
     if (getPref == null) {
-      runApp(const MyApp(initialPage: '/login'));
     } else {
       runApp(const MyApp(initialPage: '/home'));
     }
@@ -57,9 +59,19 @@ class _MyAppState extends State<MyApp> {
         '/register': (context) => const Register(),
         '/home': (context) => const Home(),
         '/traductor': (context) => const Traductor(),
+        '/cart': (context) => const Cart(),
+        '/payment': (context) {
+          final args = ModalRoute.of(context)!.settings.arguments
+              as Map<String, dynamic>;
+          return Payment(
+            cartItems: args['cartItems'] as List<Map<String, dynamic>>,
+            total: args['total'] as double,
+          );
+        },
         '/products': (context) => Products(
-          categoryId: ModalRoute.of(context)!.settings.arguments as int
-        ),
+            categoryId: ModalRoute.of(context)!.settings.arguments as int),
+        '/product': (context) => Product(
+            productId: ModalRoute.of(context)!.settings.arguments as int),
       },
     );
   }

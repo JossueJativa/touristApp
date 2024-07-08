@@ -1,13 +1,14 @@
 from flask import Blueprint, request, jsonify
 from utils.database import db
 from models import BillHeader
+from datetime import datetime
 
 bill_header_blueprint = Blueprint('bill_controller', __name__)
 
 @bill_header_blueprint.route('/bills', methods=['POST'])
 def create_bill():
     data = request.json
-    date = data.get('date')
+    date_str = data.get('date')
     total = data.get('total')
     user_id = data.get('user_id')
     first_name = data.get('first_name')
@@ -16,8 +17,14 @@ def create_bill():
     location = data.get('location')
     phone = data.get('phone')
 
-    if not all([date, total, user_id, first_name, last_name, email, location, phone]):
+    if not all([date_str, total, user_id, first_name, last_name, email, location, phone]):
         return jsonify({'error': 'All fields are required'}), 400
+
+    try:
+        # Convierte la cadena de texto a un objeto date de Python
+        date = datetime.strptime(date_str, '%Y-%m-%d %H:%M:%S.%f').date()
+    except ValueError:
+        return jsonify({'error': 'Date format is incorrect'}), 400
 
     bill = BillHeader(date=date, total=total, user_id=user_id, first_name=first_name,
                       last_name=last_name, email=email, location=location, phone=phone)

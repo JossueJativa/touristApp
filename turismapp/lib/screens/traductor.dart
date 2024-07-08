@@ -40,63 +40,70 @@ class _TraductorState extends State<Traductor> {
             fit: BoxFit.cover,
           ),
         ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            TextArea(controller: _textToTranslate, editable: true,),
-            Row(
+        child: Padding(
+          padding: const EdgeInsets.only(top: 90),
+          child: SingleChildScrollView(
+            child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                CustomDropdownButton(
-                  value: _sourceLanguage,
-                  items: _languages,
-                  onChanged: (String? value) {
-                    setState(() {
-                      _sourceLanguage = value!;
-                    });
-                  },
+                TextArea(controller: _textToTranslate, editable: true,),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    CustomDropdownButton(
+                      value: _sourceLanguage,
+                      items: _languages,
+                      onChanged: (String? value) {
+                        setState(() {
+                          _sourceLanguage = value!;
+                        });
+                      },
+                    ),
+                    IconButton(
+                      icon: const Icon(Icons.compare_arrows),
+                      onPressed: () {
+                        final String temp = _sourceLanguage;
+                        setState(() {
+                          _sourceLanguage = _targetLanguage;
+                          _targetLanguage = temp;
+                        });
+                      },
+                    ),
+                    CustomDropdownButton(
+                      value: _targetLanguage,
+                      items: _languages,
+                      onChanged: (String? value) {
+                        setState(() {
+                          _targetLanguage = value!;
+                        });
+                      },
+                    ),
+                  ],
                 ),
-                IconButton(
-                  icon: const Icon(Icons.compare_arrows),
-                  onPressed: () {
-                    final String temp = _sourceLanguage;
-                    setState(() {
-                      _sourceLanguage = _targetLanguage;
-                      _targetLanguage = temp;
-                    });
-                  },
+                
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: ButtonForm(
+                    text: 'Traducir',
+                    onPressed: () async {
+                      _translatedText.text = 'Traduciendo...';
+                      final String translated = await translate(_textToTranslate.text, _sourceLanguage, _targetLanguage);
+                      _translatedText.text = "";
+                      setState(() {
+                        _translatedText.text = translated;
+                      });
+                    },
+                    principalColor: const Color(0xFF80DEEA),
+                    onPressedColor: const Color(0xFF4DB6AC),
+                    textColor: Colors.black,
+                    key: const Key('translateButton'),
+                  ),
                 ),
-                CustomDropdownButton(
-                  value: _targetLanguage,
-                  items: _languages,
-                  onChanged: (String? value) {
-                    setState(() {
-                      _targetLanguage = value!;
-                    });
-                  },
-                ),
+                
+                TextArea(controller: _translatedText, editable: false,),
               ],
             ),
-            
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: ButtonForm(
-                text: 'Traducir',
-                onPressed: () async{
-                  final String translated = await translate(_textToTranslate.text, _sourceLanguage, _targetLanguage);
-                  setState(() {
-                    _translatedText.text = translated;
-                  });
-                },
-                principalColor: const Color(0xFF80DEEA),
-                onPressedColor: const Color(0xFF4DB6AC),
-                textColor: Colors.black,
-                key: const Key('translateButton'),
-              ),
-            ),
-
-            TextArea(controller: _translatedText, editable: true,),
-          ],
+          ),
         ),
       ),
     );

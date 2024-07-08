@@ -11,6 +11,10 @@ def create_bill_detail():
     product_id = data.get('product_id')
     quantity = data.get('quantity')
 
+    print('bill_id:', bill_id)
+    print('product_id:', product_id)
+    print('quantity:', quantity)
+
     if not all([bill_id, product_id, quantity]):
         return jsonify({'error': 'All fields are required'}), 400
 

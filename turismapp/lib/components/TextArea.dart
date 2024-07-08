@@ -21,16 +21,19 @@ class _TextAreaState extends State<TextArea> {
         margin: const EdgeInsets.only(top: 20),
         padding: const EdgeInsets.all(10),
         decoration: BoxDecoration(
-          color: Colors.white.withOpacity(0.5),
+          color: Colors.white,
           borderRadius: BorderRadius.circular(20),
         ),
         child: TextField(
           controller: widget.controller,
           maxLines: 10,
-          enabled: widget.editable, // Controla si el campo es editable o no
+          enabled: widget.editable,
+          style: const TextStyle(color: Colors.black),
           decoration: InputDecoration(
             border: InputBorder.none,
             hintText: (widget.editable) ? 'Escribe aquí' : 'Texto traducido',
+            hintStyle: const TextStyle(color: Colors.black38),
+            fillColor: !widget.editable ? Colors.grey.shade200 : Colors.transparent,
           ),
         ),
       ),
