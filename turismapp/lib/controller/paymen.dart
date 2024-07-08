@@ -71,7 +71,7 @@ Future<bool> payment(
       final id_header = data['id'];
 
       for (var item in cartItems) {
-        final response = await http.post(
+        await http.post(
           Uri.parse(API_url_bill_detail),
           headers: <String, String>{
             'Content-Type': 'application/json; charset=UTF-8',
