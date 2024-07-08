@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:turismapp/components/ButtonForm.dart';
-import 'package:turismapp/components/CircularButton.dart';
 import 'package:turismapp/components/DropdownButton.dart';
 import 'package:turismapp/components/TextArea.dart';
 import 'package:turismapp/controller/translate.dart';
