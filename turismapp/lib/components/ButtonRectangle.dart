@@ -22,7 +22,7 @@ class ButtonRectangle extends StatefulWidget {
 class _ButtonRectangleState extends State<ButtonRectangle> {
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       width: widget.width,
       height: widget.height,
       child: ElevatedButton(

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:turismapp/controller/getCatrgories.dart';
 
 class FooterBar extends StatefulWidget {
-  const FooterBar({Key? key}) : super(key: key);
+  const FooterBar({super.key});
 
   @override
   _FooterBarState createState() => _FooterBarState();

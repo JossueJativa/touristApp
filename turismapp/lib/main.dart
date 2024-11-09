@@ -19,9 +19,9 @@ void main() async {
       options: DefaultFirebaseOptions.currentPlatform,
     );
 
-    final SharedPreferences _prefs = await SharedPreferences.getInstance();
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
 
-    final getPref = _prefs.getString('access');
+    final getPref = prefs.getString('access');
 
     if (getPref == null) {
     } else {
@@ -34,7 +34,7 @@ void main() async {
 
 class MyApp extends StatefulWidget {
   final String initialPage;
-  const MyApp({Key? key, required this.initialPage}) : super(key: key);
+  const MyApp({super.key, required this.initialPage});
 
   @override
   State<MyApp> createState() => _MyAppState();

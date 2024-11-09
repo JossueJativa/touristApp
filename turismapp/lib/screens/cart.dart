@@ -4,7 +4,7 @@ import 'package:turismapp/controller/getProducts.dart';
 import 'package:turismapp/mainScaffold.dart';
 
 class Cart extends StatefulWidget {
-  const Cart({Key? key}) : super(key: key);
+  const Cart({super.key});
 
   @override
   _CartState createState() => _CartState();
@@ -20,8 +20,8 @@ class _CartState extends State<Cart> {
   }
 
   Future<void> loadCartItems() async {
-    final SharedPreferences _prefs = await SharedPreferences.getInstance();
-    final getcart = _prefs.getStringList('cart');
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final getcart = prefs.getStringList('cart');
 
     if (getcart == null) {
       setState(() {
@@ -60,10 +60,10 @@ class _CartState extends State<Cart> {
   }
 
   Future<void> saveCart() async {
-    final SharedPreferences _prefs = await SharedPreferences.getInstance();
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
     final List<String> cartIds =
         cartItems.map((item) => item['id'].toString()).toList();
-    _prefs.setStringList('cart', cartIds);
+    prefs.setStringList('cart', cartIds);
   }
 
   double calculateTotalPrice() {

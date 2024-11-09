@@ -4,9 +4,9 @@ import 'package:turismapp/controller/api.dart';
 
 Future<bool> payment(
   double total,
-  int user_id,
-  String first_name,
-  String last_name,
+  int userId,
+  String firstName,
+  String lastName,
   String email,
   String location,
   String phone,
@@ -38,7 +38,7 @@ Future<bool> payment(
     <h1>Gracias por su compra</h1>
     <p>Detalles de la compra:</p>
     <p><strong>Total:</strong> $total</p>
-    <p><strong>Nombre:</strong> $first_name $last_name</p>
+    <p><strong>Nombre:</strong> $firstName $lastName</p>
     <p><strong>Email:</strong> $email</p>
     <p><strong>Ubicación:</strong> $location</p>
     <p><strong>Teléfono:</strong> $phone</p>
@@ -57,9 +57,9 @@ Future<bool> payment(
       body: jsonEncode(<String, dynamic>{
         'date': date.toString(),
         'total': total,
-        'user_id': user_id,
-        'first_name': first_name,
-        'last_name': last_name,
+        'user_id': userId,
+        'first_name': firstName,
+        'last_name': lastName,
         'email': email,
         'location': location,
         'phone': phone,
@@ -68,7 +68,7 @@ Future<bool> payment(
 
     if (response.statusCode == 201) {
       final data = jsonDecode(response.body)['bill'];
-      final id_header = data['id'];
+      final idHeader = data['id'];
 
       for (var item in cartItems) {
         await http.post(
@@ -77,7 +77,7 @@ Future<bool> payment(
             'Content-Type': 'application/json; charset=UTF-8',
           },
           body: jsonEncode(<String, dynamic>{
-            'bill_id': id_header,
+            'bill_id': idHeader,
             'product_id': item['id'],
             'quantity': item['quantity'],
           }),

@@ -6,7 +6,7 @@ import 'package:turismapp/controller/translate.dart';
 import 'package:turismapp/mainScaffold.dart';
 
 class Traductor extends StatefulWidget {
-  const Traductor({Key? key}) : super(key: key);
+  const Traductor({super.key});
 
   @override
   _TraductorState createState() => _TraductorState();

@@ -10,7 +10,7 @@ import 'package:turismapp/mainScaffold.dart';
 class Payment extends StatefulWidget {
   final List<Map<String, dynamic>> cartItems;
   final double total;
-  const Payment({Key? key, required this.cartItems, required this.total}) : super(key: key);
+  const Payment({super.key, required this.cartItems, required this.total});
 
   @override
   _PaymentState createState() => _PaymentState();

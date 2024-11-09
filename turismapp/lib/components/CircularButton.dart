@@ -8,13 +8,13 @@ class CircularButton extends StatefulWidget {
   final double height;
 
   const CircularButton({
-    Key? key,
+    super.key,
     required this.icon,
     required this.color,
     required this.onPressed,
     required this.width,
     required this.height,
-  }) : super(key: key);
+  });
 
   @override
   _CircularButtonState createState() => _CircularButtonState();

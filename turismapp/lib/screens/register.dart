@@ -6,7 +6,7 @@ import 'package:turismapp/components/notifications.dart';
 import 'package:turismapp/controller/userController.dart';
 
 class Register extends StatefulWidget {
-  const Register({Key? key}) : super(key: key);
+  const Register({super.key});
 
   @override
   _RegisterState createState() => _RegisterState();

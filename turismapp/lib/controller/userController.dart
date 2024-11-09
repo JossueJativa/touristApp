@@ -92,10 +92,10 @@ Future<bool> logout() async {
   }
 }
 
-Future<bool> saveMobileToken(String token, int user_id) async {
+Future<bool> saveMobileToken(String token, int userId) async {
   try {
     final response = await http.get(
-      Uri.parse(API_url_notifications_get + user_id.toString()),
+      Uri.parse(API_url_notifications_get + userId.toString()),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
@@ -113,7 +113,7 @@ Future<bool> saveMobileToken(String token, int user_id) async {
 
   final body = jsonEncode(<String, dynamic>{
     'code_phone': token,
-    'user_id': user_id,
+    'user_id': userId,
   });
 
   try {
@@ -136,10 +136,10 @@ Future<bool> saveMobileToken(String token, int user_id) async {
   }
 }
 
-Future<Map<String, dynamic>> getUserInfo(int user_id) async {
+Future<Map<String, dynamic>> getUserInfo(int userId) async {
   try {
     final response = await http.get(
-      Uri.parse("$API_url_user$user_id/"),
+      Uri.parse("$API_url_user$userId/"),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },

@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:turismapp/controller/api.dart';
 
-Future<String> translate(String text, String from_lagn, String to_lang) async {
+Future<String> translate(String text, String fromLagn, String toLang) async {
   try {
     final response = await http.post(
       Uri.parse(API_url_translate),
@@ -11,8 +11,8 @@ Future<String> translate(String text, String from_lagn, String to_lang) async {
       },
       body: jsonEncode(<String, String>{
         'text': text,
-        'from': from_lagn,
-        'to': to_lang,
+        'from': fromLagn,
+        'to': toLang,
       }),
     );
     if (response.statusCode == 200) {

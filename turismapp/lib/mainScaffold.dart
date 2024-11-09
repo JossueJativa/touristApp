@@ -5,7 +5,7 @@ import 'package:turismapp/components/FooterBar.dart';
 class MainScaffold extends StatelessWidget {
   final Widget body;
 
-  const MainScaffold({Key? key, required this.body}) : super(key: key);
+  const MainScaffold({super.key, required this.body});
 
   @override
   Widget build(BuildContext context) {

@@ -40,7 +40,7 @@ class _ProductState extends State<Product> {
           } else {
             final product = snapshot.data!;
             _description.text = product['description'];
-            final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
+            final Future<SharedPreferences> prefs0 = SharedPreferences.getInstance();
             return Padding(
               padding: const EdgeInsets.only(
                   top: 105.0, bottom: 16.0),
@@ -91,7 +91,7 @@ class _ProductState extends State<Product> {
                     child: ButtonForm(
                       text: 'Agregar al carrito',
                       onPressed: () async {
-                        final SharedPreferences prefs = await _prefs;
+                        final SharedPreferences prefs = await prefs0;
                         final List<String> cart = prefs.getStringList('cart') ?? [];
                         cart.add(product['id'].toString());
                         await prefs.setStringList('cart', cart);

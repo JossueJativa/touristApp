@@ -8,7 +8,7 @@ import 'package:turismapp/controller/decodeJWT.dart';
 import 'package:turismapp/controller/userController.dart';
 
 class Login extends StatefulWidget {
-  const Login({Key? key}) : super(key: key);
+  const Login({super.key});
 
   @override
   _LoginState createState() => _LoginState();
@@ -70,15 +70,15 @@ class _LoginState extends State<Login> {
                           final access = decodeJWT(response["access"]);
                           final token = prefs.getString('token');
 
-                          final user_id = access["user_id"];
+                          final userId = access["user_id"];
                           final saveToken =
-                              await saveMobileToken(token!, user_id);
-                          final user_info = await getUserInfo(user_id);
+                              await saveMobileToken(token!, userId);
+                          final userInfo = await getUserInfo(userId);
 
                           await prefs.setString('access', response["access"]);
                           await prefs.setString('refresh', response["refresh"]);
                           await prefs.setString(
-                              'user_info', user_info.toString());
+                              'user_info', userInfo.toString());
 
                           if (saveToken) {
                             Notifications(

@@ -4,7 +4,7 @@ class TextArea extends StatefulWidget {
   final TextEditingController controller;
   final bool editable;
 
-  const TextArea({Key? key, required this.controller, this.editable = true}) : super(key: key);
+  const TextArea({super.key, required this.controller, this.editable = true});
 
   @override
   _TextAreaState createState() => _TextAreaState();
